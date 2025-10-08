@@ -173,6 +173,12 @@ serviceMonitor:
 ## Spin up a redis pod using the bitnami chart
 ## https://github.com/bitnami/charts/blob/master/bitnami/redis
 redis:
+
+  global:
+    security:
+      ## @param global.security.allowInsecureImages Allows skipping image verification
+      allowInsecureImages: true
+      
   # redis.enabled -- deploy a redis statefulset
   enabled: true
 
@@ -195,6 +201,22 @@ redis:
     persistence:
       # redis.master.persistence.enabled -- persist data
       enabled: false
+  image:
+    # image.repository -- image repository
+    # registry: docker.io
+
+    repository: bitnamilegacy/redis
+    
+    # image.tag -- image tag
+    # tag: <default to chart version>
+
+    # image.pullPolicy -- image pullPolicy
+    # pullPolicy: IfNotPresent
+
+    # image.pullSecrets -- Optional array of imagePullSecrets containing private registry credentials
+    # Ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+    pullSecrets: []
+    # - name: secretName
 
 ## Ingress configuration (useful when looking to expose /webhook endpoint externally)
 ingress:
